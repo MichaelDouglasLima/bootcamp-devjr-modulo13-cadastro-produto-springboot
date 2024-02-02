@@ -30,7 +30,7 @@ public class CategoryController {
     @PostMapping
     public ResponseEntity<Category> save(@RequestBody Category category) {
 
-        // category = categoryService.save(category);
+        category = categoryService.save(category);
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -54,13 +54,13 @@ public class CategoryController {
 
     @DeleteMapping("{id}")
     public ResponseEntity<Void> removeCategory(@PathVariable int id) {
-        // categoryService.deleteById(id);
+        categoryService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("{id}")
     public ResponseEntity<Void> updateCategory(@PathVariable int id, @RequestBody Category categoryUpdate) {
-        // categoryService.update(id, categoryUpdate);
+        categoryService.update(id, categoryUpdate);
         return ResponseEntity.ok().build();
     }
 }
