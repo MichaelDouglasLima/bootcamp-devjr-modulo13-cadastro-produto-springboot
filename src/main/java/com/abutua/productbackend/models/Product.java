@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name="TBL_PRODUCT")
@@ -21,6 +22,7 @@ public class Product implements Serializable{
     private Long id;
 
     @Column(nullable = false)
+    @NotNull(message = "Name can not be null")
     private String name;
 
     @Column(nullable = false, length = 1024)
