@@ -14,12 +14,12 @@ public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     private String name;
 
     // Métodos Construtores
-    public Category(int id, String name) {
+    public Category(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -29,11 +29,11 @@ public class Category {
     }
 
     // Métodos
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
