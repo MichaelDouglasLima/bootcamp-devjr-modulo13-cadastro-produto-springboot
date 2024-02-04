@@ -34,6 +34,10 @@ public class Product implements Serializable{
     private Double price;
 
     // Métodos Construtores
+    public Product() {
+
+    }
+
     public Product(Long id, String name, String description, Category category, boolean promotion, boolean newProduct,
             double price) {
         this.id = id;
@@ -49,10 +53,6 @@ public class Product implements Serializable{
         this.id = id;
         this.name = name;
         this.price = price;
-    }
-
-    public Product() {
-
     }
 
     // Métodos

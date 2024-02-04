@@ -23,13 +23,13 @@ public class Category implements Serializable {
     private String name;
 
     // Métodos Construtores
+    public Category() {
+        
+    }
+
     public Category(Integer id, String name) {
         this.id = id;
         this.name = name;
-    }
-
-    public Category() {
-        
     }
 
     // Métodos
