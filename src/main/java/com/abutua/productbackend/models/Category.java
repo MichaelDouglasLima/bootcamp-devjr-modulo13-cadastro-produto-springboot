@@ -2,6 +2,8 @@ package com.abutua.productbackend.models;
 
 import java.io.Serializable;
 
+import com.abutua.productbackend.dto.CategoryResponse;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,6 +27,10 @@ public class Category implements Serializable {
     // Métodos Construtores
     public Category() {
         
+    }
+
+    public Category(String name) {
+        this.name = name;
     }
 
     public Category(Integer id, String name) {
@@ -55,6 +61,10 @@ public class Category implements Serializable {
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         return result;
+    }
+
+    public CategoryResponse toDTO() {
+        return new CategoryResponse(id, name);
     }
 
     @Override
