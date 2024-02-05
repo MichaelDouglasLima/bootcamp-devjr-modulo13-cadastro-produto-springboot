@@ -1,6 +1,7 @@
 package com.abutua.productbackend.services;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,15 +21,25 @@ public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    public CategoryResponse getDTOById(int id) {
+        Category category = categoryRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found"));
+
+        return category.toDTO();
+    }
+
     public Category getById(int id) {
         Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found"));
-        
+
         return category;
     }
 
-    public List<Category> getAll() {
-        return categoryRepository.findAll();
+    public List<CategoryResponse> getAll() {
+        return categoryRepository.findAll()
+                .stream()
+                .map(c -> c.toDTO())
+                .collect(Collectors.toList());
     }
 
     public CategoryResponse save(CategoryRequest categoryRequest) {
@@ -41,7 +52,7 @@ public class CategoryService {
         categoryRepository.delete(category);
     }
 
-    public void update(@PathVariable int id, @RequestBody Category categoryUpdate) {
+    public void update(@PathVariable int id, @RequestBody CategoryRequest categoryUpdate) {
         Category category = getById(id);
         category.setName(categoryUpdate.getName());
         categoryRepository.save(category);

@@ -19,7 +19,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.abutua.productbackend.dto.CategoryRequest;
 import com.abutua.productbackend.dto.CategoryResponse;
-import com.abutua.productbackend.models.Category;
 import com.abutua.productbackend.services.CategoryService;
 
 @RestController
@@ -44,13 +43,13 @@ public class CategoryController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Category> getCategory(@PathVariable int id) {
-        Category category = categoryService.getById(id);
+    public ResponseEntity<CategoryResponse> getCategory(@PathVariable int id) {
+        CategoryResponse category = categoryService.getDTOById(id);
         return ResponseEntity.ok(category);
     }
 
     @GetMapping
-    public ResponseEntity<List<Category>> getCategories() {
+    public ResponseEntity<List<CategoryResponse>> getCategories() {
         return ResponseEntity.ok(categoryService.getAll());
     }
 
@@ -61,7 +60,7 @@ public class CategoryController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Void> updateCategory(@PathVariable int id, @RequestBody Category categoryUpdate) {
+    public ResponseEntity<Void> updateCategory(@PathVariable int id, @RequestBody CategoryRequest categoryUpdate) {
         categoryService.update(id, categoryUpdate);
         return ResponseEntity.ok().build();
     }
