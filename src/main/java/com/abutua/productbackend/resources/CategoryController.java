@@ -40,7 +40,7 @@ public class CategoryController {
                 .toUri();
 
         return ResponseEntity.created(location).body(category);
-    }
+    } 
 
     @GetMapping("{id}")
     public ResponseEntity<CategoryResponse> getCategory(@PathVariable int id) {

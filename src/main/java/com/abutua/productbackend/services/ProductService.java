@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.abutua.productbackend.dto.CategoryRequest;
+import com.abutua.productbackend.dto.CategoryResponse;
+import com.abutua.productbackend.dto.ProductRequest;
+import com.abutua.productbackend.dto.ProductResponse;
 import com.abutua.productbackend.models.Category;
 import com.abutua.productbackend.models.Product;
 import com.abutua.productbackend.repositories.ProductRepository;
@@ -33,8 +37,13 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public Product save(Product product) {
-        return productRepository.save(product);
+    // public Product save(Product product) {
+    //     return productRepository.save(product);
+    // }
+
+    public ProductResponse save(ProductRequest productRequest) {
+        Product product = productRepository.save(productRequest.toEntity());
+        return product.toDTO();
     }
 
     public void deleteById(long id) {
