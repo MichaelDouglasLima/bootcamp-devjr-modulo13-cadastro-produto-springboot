@@ -1,16 +1,14 @@
 package com.abutua.productbackend.dto;
 
-import com.abutua.productbackend.models.Category;
-
 public class ProductResponse {
     
-    private Long id;
+    private long id;
     private String name;
     private String description; 
     private boolean promotion;
     private boolean newProduct;
-    private Double price;
-    private Category category;
+    private double price;
+    private CategoryResponse category;
 
     public ProductResponse() {
         
@@ -21,11 +19,11 @@ public class ProductResponse {
         this.name = name;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -61,19 +59,19 @@ public class ProductResponse {
         this.newProduct = newProduct;
     }
 
-    public Double getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
-    public Category getCategory() {
+    public CategoryResponse getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(CategoryResponse category) {
         this.category = category;
     }
 

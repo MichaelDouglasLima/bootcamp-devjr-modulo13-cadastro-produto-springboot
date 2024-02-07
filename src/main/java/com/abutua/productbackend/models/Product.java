@@ -2,7 +2,6 @@ package com.abutua.productbackend.models;
 
 import java.io.Serializable;
 
-import com.abutua.productbackend.dto.CategoryResponse;
 import com.abutua.productbackend.dto.ProductResponse;
 
 import jakarta.persistence.Column;
@@ -12,10 +11,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.Valid;
-// import jakarta.validation.constraints.Min;
-// import jakarta.validation.constraints.NotBlank;
-// import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name="TBL_PRODUCT")
@@ -28,24 +23,18 @@ public class Product implements Serializable{
     private Long id;
 
     @Column(nullable = false, length = 255)
-    // @NotBlank(message = "Name can not be blank")
-    // @Size(min=3, max = 255, message = "Name length min=3 and max=255")
     private String name;
 
     @Column(nullable = false, length = 1024)
-    // @NotBlank(message = "Description can not be blank")
-    // @Size(min=3, max = 1024, message = "Description length min=3 and max=1024")
     private String description; 
 
     private boolean promotion;
 
     private boolean newProduct;
 
-    // @Min(value=0, message = "Price min value = 0")
     private Double price;
 
     @ManyToOne
-    @Valid
     private Category category;
 
     // Métodos Construtores
@@ -132,7 +121,16 @@ public class Product implements Serializable{
     }
 
     public ProductResponse toDTO() {
-        return new ProductResponse(id, name);
+        ProductResponse productResponse = new ProductResponse();
+        productResponse.setId(id);
+        productResponse.setName(name);
+        productResponse.setDescription(description);
+        productResponse.setPrice(price);
+        productResponse.setNewProduct(newProduct);
+        productResponse.setPromotion(promotion);
+        productResponse.setCategory(category.toDTO());
+
+        return productResponse;
     }
 
     @Override

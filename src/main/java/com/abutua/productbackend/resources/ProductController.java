@@ -19,8 +19,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.abutua.productbackend.dto.ProductRequest;
 import com.abutua.productbackend.dto.ProductResponse;
-import com.abutua.productbackend.models.Product;
 import com.abutua.productbackend.services.ProductService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @CrossOrigin
@@ -33,25 +34,25 @@ public class ProductController {
     @PostMapping
     public ResponseEntity<ProductResponse> save(@Validated @RequestBody ProductRequest productRequest) {
         
-        ProductResponse product = productService.save(productRequest);
+        ProductResponse productResponse = productService.save(productRequest);
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(product.getId())
+                .buildAndExpand(productResponse.getId())
                 .toUri();
 
-        return ResponseEntity.created(location).body(product);
+        return ResponseEntity.created(location).body(productResponse);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Product> getProduct(@PathVariable long id) {
-        Product product = productService.getById(id);
+    public ResponseEntity<ProductResponse> getProduct(@PathVariable long id) {
+        ProductResponse product = productService.getDTOById(id);
         return ResponseEntity.ok(product);
     }
 
     @GetMapping
-    public ResponseEntity<List<Product>> getProducts() {
+    public ResponseEntity<List<ProductResponse>> getProducts() {
         return ResponseEntity.ok(productService.getAll());
     }
 
@@ -62,7 +63,7 @@ public class ProductController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Void> updateProduct(@PathVariable long id, @RequestBody Product productUpdate) {
+    public ResponseEntity<Void> updateProduct(@PathVariable long id, @Valid @RequestBody ProductRequest productUpdate) {
         productService.update(id, productUpdate);
         return ResponseEntity.ok().build();
     }

@@ -1,10 +1,9 @@
 package com.abutua.productbackend.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.ManyToOne;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import com.abutua.productbackend.models.Category;
@@ -12,12 +11,10 @@ import com.abutua.productbackend.models.Product;
 
 public class ProductRequest {
 
-    @Column(nullable = false, length = 255)
     @NotBlank(message = "Name can not be blank")
     @Size(min=3, max = 255, message = "Name length min=3 and max=255")
     private String name;
 
-    @Column(nullable = false, length = 1024)
     @NotBlank(message = "Description can not be blank")
     @Size(min=3, max = 1024, message = "Description length min=3 and max=1024")
     private String description; 
@@ -27,11 +24,11 @@ public class ProductRequest {
     private boolean newProduct;
 
     @Min(value=0, message = "Price min value = 0")
-    private Double price;
+    private double price;
 
-    @ManyToOne
+    @NotNull
     @Valid
-    private Category category;
+    private IntegerDTO category;
 
     public String getName() {
         return name;
@@ -65,23 +62,31 @@ public class ProductRequest {
         this.newProduct = newProduct;
     }
 
-    public Double getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
-    public Category getCategory() {
+    public IntegerDTO getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(IntegerDTO category) {
         this.category = category;
     }
 
     public Product toEntity() {
-        return new Product(name);
+        Product product = new Product();
+        product.setName(name);
+        product.setDescription(description);
+        product.setPrice(price);
+        product.setNewProduct(newProduct);
+        product.setPromotion(promotion);
+        product.setCategory(new Category(category.getId()));
+
+        return product;
     }
 }
